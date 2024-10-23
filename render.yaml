@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: ddg-chat
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
