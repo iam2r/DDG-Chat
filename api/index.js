@@ -61,7 +61,7 @@ const logger = (res, req) => {
 };
 
 const router = AutoRouter({
-	before: [withBenchmarking, preflight, withAuth],
+	before: [withBenchmarking, preflight],
 	missing: () => error(404, '404 not found.'),
 	finally: [corsify, logger],
 });
@@ -80,7 +80,7 @@ router.get(config.API_PREFIX + '/v1/models', () =>
 	})
 );
 
-router.post(config.API_PREFIX + '/v1/chat/completions', (req) => handleCompletion(req));
+router.post(config.API_PREFIX + '/v1/chat/completions', withAuth, (req) => handleCompletion(req));
 
 async function handleCompletion(request) {
 	try {
